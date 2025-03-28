@@ -10,8 +10,6 @@ RUN apt-get update && apt-get install -y \
     git \
     python3 \
     python3-pip \
-    nodejs \
-    npm \
     sudo \
     vim \
     nano \
@@ -24,9 +22,9 @@ RUN apt-get update && apt-get install -y \
     software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
-# Installer une version plus récente de Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs
+# Installer une version plus récente de Node.js (LTS recommandée)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y --force-overwrite nodejs
 
 # Installer Chrome pour le navigateur headless
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
