@@ -1,0 +1,110 @@
+{
+  "name": ".clinerules",
+  "version": "1.0.0",
+  "description": "Configuration pour l'intégration de Cline dans la sandbox",
+  "tools": [
+    {
+      "name": "readFile",
+      "description": "Lit le contenu d'un fichier",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Chemin du fichier à lire"
+          }
+        },
+        "required": ["path"]
+      },
+      "endpoint": "http://localhost:8001/tools/readFile"
+    },
+    {
+      "name": "writeFile",
+      "description": "Écrit du contenu dans un fichier",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Chemin du fichier à écrire"
+          },
+          "content": {
+            "type": "string",
+            "description": "Contenu à écrire dans le fichier"
+          }
+        },
+        "required": ["path", "content"]
+      },
+      "endpoint": "http://localhost:8001/tools/writeFile"
+    },
+    {
+      "name": "executeCommand",
+      "description": "Exécute une commande shell",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "Commande à exécuter"
+          }
+        },
+        "required": ["command"]
+      },
+      "endpoint": "http://localhost:8001/tools/executeCommand"
+    },
+    {
+      "name": "findFiles",
+      "description": "Recherche des fichiers correspondant à un motif",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "description": "Motif de recherche (glob)"
+          },
+          "directory": {
+            "type": "string",
+            "description": "Répertoire de départ pour la recherche"
+          }
+        },
+        "required": ["pattern", "directory"]
+      },
+      "endpoint": "http://localhost:8001/tools/findFiles"
+    },
+    {
+      "name": "browseWeb",
+      "description": "Navigue sur le web et récupère le contenu d'une page",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "URL de la page à visiter"
+          }
+        },
+        "required": ["url"]
+      },
+      "endpoint": "http://localhost:8001/tools/browseWeb"
+    },
+    {
+      "name": "installPackage",
+      "description": "Installe un package npm ou pip",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "packageName": {
+            "type": "string",
+            "description": "Nom du package à installer"
+          },
+          "packageManager": {
+            "type": "string",
+            "description": "Gestionnaire de packages (npm ou pip)",
+            "enum": ["npm", "pip"]
+          }
+        },
+        "required": ["packageName", "packageManager"]
+      },
+      "endpoint": "http://localhost:8001/tools/installPackage"
+    }
+  ]
+}
