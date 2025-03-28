@@ -1,0 +1,137 @@
+{
+  "name": "cline-sandbox-extension",
+  "displayName": "Cline Sandbox",
+  "description": "Extension VS Code pour intégrer Cline dans un environnement sandbox",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:cline-sandbox.start",
+    "onCommand:cline-sandbox.stop",
+    "onView:cline-sandbox-explorer"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cline-sandbox.start",
+        "title": "Démarrer la Sandbox Cline"
+      },
+      {
+        "command": "cline-sandbox.stop",
+        "title": "Arrêter la Sandbox Cline"
+      },
+      {
+        "command": "cline-sandbox.restart",
+        "title": "Redémarrer la Sandbox Cline"
+      },
+      {
+        "command": "cline-sandbox.openTerminal",
+        "title": "Ouvrir un Terminal dans la Sandbox"
+      },
+      {
+        "command": "cline-sandbox.installMCP",
+        "title": "Installer un Serveur MCP"
+      },
+      {
+        "command": "cline-sandbox.createCheckpoint",
+        "title": "Créer un Checkpoint"
+      },
+      {
+        "command": "cline-sandbox.restoreCheckpoint",
+        "title": "Restaurer un Checkpoint"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "cline-sandbox",
+          "title": "Cline Sandbox",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "cline-sandbox": [
+        {
+          "id": "cline-sandbox-explorer",
+          "name": "Explorer"
+        },
+        {
+          "id": "cline-sandbox-mcp",
+          "name": "Serveurs MCP"
+        },
+        {
+          "id": "cline-sandbox-checkpoints",
+          "name": "Checkpoints"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Cline Sandbox",
+      "properties": {
+        "cline-sandbox.apiUrl": {
+          "type": "string",
+          "default": "http://localhost:3000",
+          "description": "URL de l'API Cline Sandbox"
+        },
+        "cline-sandbox.autoStart": {
+          "type": "boolean",
+          "default": false,
+          "description": "Démarrer automatiquement la sandbox au lancement de VS Code"
+        },
+        "cline-sandbox.resourceLimits": {
+          "type": "object",
+          "default": {
+            "cpu": 2,
+            "memory": 4
+          },
+          "description": "Limites de ressources pour la sandbox (CPU en cœurs, mémoire en Go)"
+        },
+        "cline-sandbox.permissions": {
+          "type": "object",
+          "default": {
+            "fileAccess": "prompt",
+            "terminalAccess": "prompt",
+            "networkAccess": "prompt"
+          },
+          "description": "Permissions pour la sandbox (prompt, allow, deny)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "test-compile": "tsc -p ./",
+    "test-watch": "tsc -watch -p ./",
+    "pretest": "npm run test-compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.60.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "eslint": "^7.27.0",
+    "glob": "^7.1.7",
+    "mocha": "^8.4.0",
+    "typescript": "^4.3.2",
+    "vscode-test": "^1.5.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "socket.io-client": "^4.1.2"
+  }
+}

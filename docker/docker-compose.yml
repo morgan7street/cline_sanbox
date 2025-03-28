@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  cline-sandbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cline-sandbox
+    volumes:
+      - ./workspace:/home/clineuser/workspace
+      - ./mcp:/home/clineuser/.cline/mcp
+      - ./logs:/var/log/cline-sandbox
+    ports:
+      - "3000:3000"  # API REST
+      - "8000:8000"  # Serveurs MCP
+      - "8080:8080"  # Application web
+    environment:
+      - NODE_ENV=development
+      - CLINE_SANDBOX_MODE=true
+      - CLINE_API_KEY=${CLINE_API_KEY}
+      - MCP_SERVER_ENABLED=true
+    restart: unless-stopped
+    networks:
+      - cline-network
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    # Limiter les ressources pour éviter les abus
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+
+networks:
+  cline-network:
+    driver: bridge
