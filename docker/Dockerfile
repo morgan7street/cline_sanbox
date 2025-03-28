@@ -60,7 +60,6 @@ RUN mkdir -p /home/clineuser/workspace/.clinerules
 
 # Copier les fichiers de configuration
 COPY --chown=clineuser:clineuser ./config/.clinerules /home/clineuser/workspace/.clinerules/
-COPY --chown=clineuser:clineuser ./config/.vscode /home/clineuser/workspace/.vscode/
 
 # Exposer les ports pour l'API et les serveurs MCP
 EXPOSE 3000 8000 8080
