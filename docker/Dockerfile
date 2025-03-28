@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y \
 
 # Installer une version plus récente de Node.js (LTS recommandée)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y --force-overwrite nodejs
+    && apt-get install -y -o Dpkg::Options::="--force-overwrite" nodejs
 
 # Installer Chrome pour le navigateur headless
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
